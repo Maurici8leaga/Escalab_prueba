@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Escalab Test</title>
+		<link rel="stylesheet" href="../css/index.css" />
+	</head>
+	<body id="page1">
+		<header>
+			<h1>Countries</h1>
+		</header>
+
+		<div>
+			<label for="pais">Busca un pais</label>
+			<!-- <input type="text" id="searchCountry" onchange="addUrlParameter();" /> -->
+			<input type="text" id="searchCountry" onchange="searchBar()" />
+
+			<label for="region">Filter</label>
+			<select name="Region" id="searchRegion" onchange="filterRegion();">
+				<option value="">-- Region --</option>
+				<option value="Africa">Africa</option>
+				<option value="Americas">Americas</option>
+				<option value="Asia">Asia</option>
+				<option value="Europe">Europe</option>
+				<option value="Oceania">Oceania</option>
+			</select>
+		</div>
+
+		<div id="infoCountry"></div>
+
+		<script defer src="index.js" charset="utf-8"></script>
+	</body>
+</html>
