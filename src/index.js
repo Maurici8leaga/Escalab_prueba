@@ -5,25 +5,27 @@ const infoCountry = document.getElementById("infoCountry");
 window.addEventListener("load", () => {
 	// este event listener sirve para ejecutar funciones y cargen apenas corra la app, lleva 2 parametros "load"
 	// un string para identificar para que es el event y el 2do debe ser un function
-
-	statusPage();
+	// statusPage();
+	fetchData();
+	loading();
 });
 
-const statusPage = () => {
-	let page = document.body.id;
+// const statusPage = () => {
+// 	let page = document.body.id;
 
-	switch (page) {
-		case "page1":
-			fetchData();
-			loading();
-			break;
-		case "page2":
-			return console.log("estoy en pag2");
-			break;
-		default:
-			return console.log("no se trajo nada");
-	}
-};
+// 	switch (page) {
+// 		case "page1":
+// 			fetchData();
+// 			loading();
+// 			break;
+// 		// case "page2":
+// 		// 	getQueryUrl();
+// 		// 	return console.log("estoy en pag2");
+// 		// 	break;
+// 		default:
+// 			return console.log("no se trajo nada");
+// 	}
+// };
 
 // creamos un function para el buscar el pais deseado
 const searchBar = () => {
@@ -58,25 +60,17 @@ const reset = () => {
 	document.getElementById("searchRegion").selectedIndex = 0;
 };
 
-function addUrlParameter(name, value) {
-	// var searchParams = new URLSearchParams(window.location.search);
-	// searchParams.set(name, value);
-	// window.location.search = searchParams.toString();
+// function addUrlParameter(name, value) {
+// 	var searchParams = new URLSearchParams(window.location.search);
+// 	searchParams.set(name, value);
+// 	window.location.search = searchParams.toString();
 
-	console.log(name, value);
-}
+// 	console.log(name, value);
+// }
 
-// window.onload = function () {
-// 	try {
-
-// 		var url1 = window.location.href.toLowerCase();
-// 		var url2 = new URL(url1);
-// 		console.log("esto ->>>>", url2);
-
-// 	} catch (error) {
-// 			console.log(error);
-// 	}
-// };
+const sendQuery = (value) => {
+	window.document.location = "detailContry.html" + "?pais=" + value;
+};
 
 const fetchData = async () => {
 	let res;
@@ -90,24 +84,8 @@ const fetchData = async () => {
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			// destructurizamos
-			// const { name, flags, region, capital, population } = result;
-
-			// en este const se va a contener la data que esta llegando del fetch y organizada como se espera añadir en el html
-			// const contenido = `<div class="card">
-			// <img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			// <div class="container">
-			// 	<h4><b>${name.official}</b></h4>
-			// 	<p>Population : ${population}</p>
-			// 	<p>Region : ${region}</p>
-			// 	<p>Capital : ${capital[0]}</p>
-			// 	<button class="button button-color-card" onclick="addUrlParameter('bander', ${name.official})">
-			// 		<a>Ver mas</a>
-			// 	</button>
-			// </div>
-			// </div>`;
-
 			const contenido = () => {
+				// destructurizamos
 				let { name, flags, region, capital, population, cca2 } = result;
 
 				const div = `<div class="card">
@@ -117,8 +95,8 @@ const fetchData = async () => {
 				<p>Population : ${population}</p>
 				<p>Region : ${region}</p>
 				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="addUrlParameter('bander', ${name.official})">
-					<a>Ver mas</a>
+				<button class="button button-color-card" onclick="sendQuery('KEY')">
+					ver mas
 				</button>
 			</div>
 			</div>`;
