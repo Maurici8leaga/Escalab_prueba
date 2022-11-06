@@ -5,27 +5,9 @@ const infoCountry = document.getElementById("infoCountry");
 window.addEventListener("load", () => {
 	// este event listener sirve para ejecutar funciones y cargen apenas corra la app, lleva 2 parametros "load"
 	// un string para identificar para que es el event y el 2do debe ser un function
-	// statusPage();
 	fetchData();
 	loading();
 });
-
-// const statusPage = () => {
-// 	let page = document.body.id;
-
-// 	switch (page) {
-// 		case "page1":
-// 			fetchData();
-// 			loading();
-// 			break;
-// 		// case "page2":
-// 		// 	getQueryUrl();
-// 		// 	return console.log("estoy en pag2");
-// 		// 	break;
-// 		default:
-// 			return console.log("no se trajo nada");
-// 	}
-// };
 
 // creamos un function para el buscar el pais deseado
 const searchBar = () => {
@@ -60,19 +42,18 @@ const reset = () => {
 	document.getElementById("searchRegion").selectedIndex = 0;
 };
 
-// function addUrlParameter(name, value) {
-// 	var searchParams = new URLSearchParams(window.location.search);
-// 	searchParams.set(name, value);
-// 	window.location.search = searchParams.toString();
-
-// 	console.log(name, value);
-// }
-
+// function for send the query to the next page and change to next page
 const sendQuery = (value) => {
+	// window.document.location es la direccion completa de donde se encuentra la pag el cual retorna el actual URL
 	window.document.location = "detailContry.html" + "?pais=" + value;
+	// aca estamos estamos haciendo 2 cosas, 1) al igualar el location del document a "detailContry.html" estamos renderizando manualmente la pag a esa direccion
+	// 2) adicional al renderizar la pag estamos agregando un query a ese URL de esa pag donde es "?pais=" es el nombre del query y value el valor a pasar de esta pag a la otra
 };
 
+// fetchs data
+
 const fetchData = async () => {
+	//query va a hacer el texto que el usuario coloque en el input
 	let res;
 
 	try {
@@ -86,20 +67,20 @@ const fetchData = async () => {
 		result.map((result) => {
 			const contenido = () => {
 				// destructurizamos
-				let { name, flags, region, capital, population, cca2 } = result;
+				let { name, flags, region, capital, population } = result;
 
 				const div = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			<div class="container">
+				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
+				<div class="container">
 				<h4><b>${name.official}</b></h4>
 				<p>Population : ${population}</p>
 				<p>Region : ${region}</p>
 				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('KEY')">
+				<button class="button button-color-card" onclick="sendQuery('${name.official}')">
 					ver mas
 				</button>
-			</div>
-			</div>`;
+				</div>
+				</div>`;
 
 				return div;
 			};
@@ -130,26 +111,29 @@ const fetchCountries = async (query) => {
 		searchCountry.value = "";
 
 		result.map((result) => {
-			// destructurizamos
-			const { name, flags, region, capital, population } = result;
+			const contenido = () => {
+				// destructurizamos
+				let { name, flags, region, capital, population } = result;
 
-			// en este const se va a contener la data que esta llegando del fetch y organizada como se espera añadir en el html
-			const contenido = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			<div class="container">
-			<h4><b>${name.official}</b></h4>
-			<p>Population : ${population}</p>
-			<p>Region : ${region}</p>
-			<p>Capital : ${capital[0]}</p>
-			<button class="button button-color-card">
-			<a href="detailContry.html" >Ver mas</a>
-			</button>
-			</div>
-			</div>`;
+				const div = `<div class="card">
+				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
+				<div class="container">
+				<h4><b>${name.official}</b></h4>
+				<p>Population : ${population}</p>
+				<p>Region : ${region}</p>
+				<p>Capital : ${capital}</p>
+				<button class="button button-color-card" onclick="sendQuery('${name.official}')">
+					ver mas
+				</button>
+				</div>
+				</div>`;
+
+				return div;
+			};
 
 			let div = document.createElement("div");
 			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido;
+			div.innerHTML = contenido();
 			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
 			// este nuevo div con la nueva informacion y la adjunta en el HTML
 			infoCountry.appendChild(div);
@@ -175,26 +159,29 @@ const fetchRegion = async (query) => {
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			// destructurizamos
-			const { name, flags, region, capital, population } = result;
+			const contenido = () => {
+				// destructurizamos
+				let { name, flags, region, capital, population } = result;
 
-			// en este const se va a contener la data que esta llegando del fetch y organizada como se espera añadir en el html
-			const contenido = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			<div class="container">
-			<h4><b>${name.official}</b></h4>
-			<p>Population : ${population}</p>
-			<p>Region : ${region}</p>
-			<p>Capital : ${capital[0]}</p>
-			<button class="button button-color-card">
-			<a href="detailContry.html">Ver mas</a>
-			</button>		
-			</div>
-			</div>`;
+				const div = `<div class="card">
+				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
+				<div class="container">
+				<h4><b>${name.official}</b></h4>
+				<p>Population : ${population}</p>
+				<p>Region : ${region}</p>
+				<p>Capital : ${capital}</p>
+				<button class="button button-color-card" onclick="sendQuery('${name.official}')">
+					ver mas
+				</button>
+				</div>
+				</div>`;
+
+				return div;
+			};
 
 			let div = document.createElement("div");
 			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido;
+			div.innerHTML = contenido();
 			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
 			// este nuevo div con la nueva informacion y la adjunta en el HTML
 			infoCountry.appendChild(div);
