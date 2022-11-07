@@ -72,11 +72,11 @@ const fetchData = async () => {
 				const div = `<div class="card">
 				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
 				<div class="container">
-				<h4><b>${name.official}</b></h4>
+				<h4><b>${name.common}</b></h4>
 				<p>Population : ${population}</p>
 				<p>Region : ${region}</p>
 				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('${name.official}')">
+				<button class="button button-color-card" onclick="sendQuery('${name.common}')">
 					ver mas
 				</button>
 				</div>
@@ -118,11 +118,11 @@ const fetchCountry = async (query) => {
 				const div = `<div class="card">
 				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
 				<div class="container">
-				<h4><b>${name.official}</b></h4>
+				<h4><b>${name.common}</b></h4>
 				<p>Population : ${population}</p>
 				<p>Region : ${region}</p>
 				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('${name.official}')">
+				<button class="button button-color-card" onclick="sendQuery('${name.common}')">
 					ver mas
 				</button>
 				</div>
@@ -166,11 +166,11 @@ const fetchRegion = async (query) => {
 				const div = `<div class="card">
 				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
 				<div class="container">
-				<h4><b>${name.official}</b></h4>
+				<h4><b>${name.common}</b></h4>
 				<p>Population : ${population}</p>
 				<p>Region : ${region}</p>
 				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('${name.official}')">
+				<button class="button button-color-card" onclick="sendQuery('${name.common}')">
 					ver mas
 				</button>
 				</div>

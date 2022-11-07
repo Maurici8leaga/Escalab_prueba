@@ -17,8 +17,6 @@ const catchingQuery = async () => {
 
 		let result = await res.json();
 
-		console.log(result[0]);
-
 		const dataCountry = () => {
 			const {
 				name,
@@ -26,6 +24,7 @@ const catchingQuery = async () => {
 				region,
 				subregion,
 				capital,
+				capitalInfo,
 				population,
 				continents,
 				currencies,
@@ -41,17 +40,31 @@ const catchingQuery = async () => {
 				timezones,
 				startOfWeek,
 				tld,
+				coatOfArms,
+				car,
+				maps,
+				postalCode,
 			} = result[0];
 
 			// dandole nombre a la propieda de currency ya que varia esta propiedad varia por pais hacemos esto para poder hacerlo de forma generica
 			// y por acceder a la propiedad en todos los paises
 			const keysOfCurrency = Object.keys(currencies);
 			const arrayOfCurrency = keysOfCurrency.map((keysOfCurrency) => ({
+				// creamos un array de objetos con estas propiedades
 				abbreviation: keysOfCurrency,
 				currency: currencies[keysOfCurrency],
 			}));
 
-			function frenchExist() {
+			// functions for check if exist the object before return to the html
+			const coatArmsExist = () => {
+				if (coatOfArms != undefined) {
+					return `<img src="${coatOfArms.png}" alt="Avatar" style="width: 100%" />`;
+				} else {
+					return "";
+				}
+			};
+
+			const frenchExist = () => {
 				if (demonyms.fra) {
 					return `<li>
                     <p>French: Female: ${demonyms.fra.f}, Masculine: ${demonyms.fra.m}</p>
@@ -59,9 +72,9 @@ const catchingQuery = async () => {
 				} else {
 					return "";
 				}
-			}
+			};
 
-			function giniExist() {
+			const giniExist = () => {
 				if (gini != undefined) {
 					const keyOfGini = Object.keys(gini);
 					const arrayOfGini = keyOfGini.map((keyOfGini) => ({
@@ -73,34 +86,74 @@ const catchingQuery = async () => {
 				} else {
 					return "";
 				}
-			}
+			};
 
-			// function sortLanguages() {
-			// 	const keyLanguages = Object.values(languages);
-			// 	const arrayLanguages = keyLanguages.map((keyLanguages) => ({
-			// 		idioma: keyLanguages,
-			// 	}));
+			const fifaExist = () => {
+				if (fifa != undefined) {
+					return `${fifa}`;
+				} else {
+					return "does not apply";
+				}
+			};
 
-			// 	console.log(languages);
-			// 	console.log(keyLanguages);
+			const postalCodeExist = () => {
+				if (postalCode != undefined) {
+					return `<p>Zip code format: ${postalCode.format}</p>`;
+				} else {
+					return "";
+				}
+			};
 
-			// 	// for (let i = 0; i < arrayLanguages.length; i++) {
-			// 	// 	console.log(arrayLanguages[i].idioma);
-			// 	// 	return arrayLanguages[i].idioma;
-			// 	// }
+			// functions for sort the items before return to html
+			const sortCapital = () => {
+				const liElement = capital.map((item) => {
+					return `<li><p>${item}</p></li>`;
+				});
 
-			// 	arrayLanguages.map((zu) => {
-			// 		console.log(zu.idioma);
-			// 		return zu.idioma;
-			// 	});
-			// }
+				return liElement.join(" ");
+			};
 
-			const div = `		<div class="card">
+			const sortLanguages = () => {
+				const keyLanguages = Object.values(languages);
+				const arrayLanguages = keyLanguages.map((keyLanguages) => ({
+					language: keyLanguages,
+				}));
+
+				const liElement = arrayLanguages.map((item) => {
+					return `<li><p>${item.language}</p></li>`;
+				});
+
+				return liElement.join(" ");
+				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
+			};
+
+			const sortTimezones = () => {
+				const liElement = timezones.map((item) => {
+					return `<li><p>${item}</p></li>`;
+				});
+
+				return liElement.join(" ");
+				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
+			};
+
+			const div = `<div class="card">
 			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
+            <div>
+                ${coatArmsExist()}
+            </div>
 			<div class="container">
-				<h4><b>${name.official}</b></h4>
+				<h4><b>${name.common}</b></h4>
+                <p>Official name: ${name.official}</p>
                 <p>Area: ${area} km²</p>
-				<p>Capital : ${capital}</p>
+                <div>
+                    <p>Capital : </p>
+                    <ul>
+                        ${sortCapital()}
+                    </ul>
+                </div>
+                <p>Latitude: ${capitalInfo.latlng[0]} and longitude: ${
+				capitalInfo.latlng[1]
+			} of the capital</p>
 				<p>Continent : ${continents}</p>
                 <p>Country code Top Level Domain: ${tld[0]}</p>
                 <div>
@@ -119,7 +172,7 @@ const catchingQuery = async () => {
                         ${frenchExist()}
                     </ul>
                 </div>
-                <p>FIFA: ${fifa}</p>
+                <p>FIFA: ${fifaExist()}</p>
                 <div>
                     ${giniExist()}
                 </div>
@@ -127,14 +180,14 @@ const catchingQuery = async () => {
 				idd.suffixes[0]
 			}</p>
                 <p>Independent: ${independent}</p>
-                <p>Latitude: ${latlng[0]} -  Longitude: ${latlng[1]}</p>
+                <p>Latitude: ${latlng[0]} -  Longitude: ${
+				latlng[1]
+			} of the country</p>
                 <p>Landlocked: ${landlocked}</p>
                 <div>
                     <p>Languages: </p>
                     <ul>
-                       <li>
-                           FALTA POR AGREGAR
-                       </li> 
+                           ${sortLanguages()}
                     </ul>
                 </div>
 				<p>Population : ${population} </p>
@@ -145,8 +198,17 @@ const catchingQuery = async () => {
 
                     <p>Time zones: </p>
                     <ul>
-                        <li>FALTA POR AGREGAR</li>
+                        ${sortTimezones()}
                     </ul>
+                </div>
+                <p>Driving side of cars: ${car.side}</p>
+                <div>
+                                Google maps: <a href="${maps.googleMaps}">${
+				maps.googleMaps
+			}</a>
+                </div>
+                <div>                
+                    ${postalCodeExist()}
                 </div>
 			</div>
 		</div>`;
