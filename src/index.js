@@ -17,7 +17,7 @@ const searchBar = () => {
 	loading();
 
 	// llamos otra vez la funcion de busqueda pero con el query
-	fetchCountries(searchQuery);
+	fetchCountry(searchQuery);
 };
 
 // creamos un functio para filtrar los paises por region
@@ -97,7 +97,7 @@ const fetchData = async () => {
 	}
 };
 
-const fetchCountries = async (query) => {
+const fetchCountry = async (query) => {
 	//query va a hacer el texto que el usuario coloque en el input
 	let res;
 
