@@ -1,20 +1,54 @@
-h1 {
-	color: blue;
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans", sans-serif;
 }
 
-.card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	transition: 0.3s;
-	width: 40%;
-}
-
-/* .card:hover {
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-} */
-
+/* containers */
 .container {
-	padding: 2px 16px;
+	max-width: 100%;
+	margin: auto;
+	padding: 2px;
+	overflow: hidden;
 }
+
+.container .banner {
+	min-width: 600px;
+	padding: 8%;
+	background: url("https://images4.alphacoders.com/803/80316.jpg") no-repeat
+		center center/cover;
+}
+
+.container .banner input {
+	position: relative;
+	display: inline-block;
+	font-size: 20px;
+	box-sizing: border-box;
+	border-radius: 5px;
+}
+
+.container .cards {
+	background-color: blue;
+}
+
+.container .item {
+	background-color: green;
+	color: white;
+}
+
+/* titles & paragraphs  */
+
+.title-header {
+	display: flex;
+	justify-content: center;
+	color: white;
+	font-size: 50px;
+	font-weight: 500;
+	font-family: "Montserrat", sans-serif;
+	margin-bottom: 10px;
+}
+
+/* buttons */
 
 .button {
 	border: none;
@@ -31,4 +65,66 @@ h1 {
 .button-color-card {
 	background-color: blue;
 	color: white;
+}
+
+.inputSubmit {
+	position: relative;
+	left: -5px;
+	margin-left: 10px;
+	width: 150px;
+	height: 50px;
+	border: none;
+	box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
+	outline: none;
+	cursor: pointer;
+	left: 0px;
+	/* colores a cambiar */
+	background-color: rgba(8, 146, 208);
+	color: #fff;
+	filter: brightness(90%);
+}
+
+.inputSubmit:hover {
+	/* colores a cambiar */
+	background-color: rgba(8, 146, 208);
+	filter: brightness(100%);
+}
+
+/* inputs & selectors & forms*/
+
+.inputSearch {
+	width: 340px;
+	height: 50px;
+	border: none;
+	outline: none;
+	padding: 0 25px;
+	background: #fff;
+	box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+.formSearch {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+select {
+	position: relative;
+	border: none;
+	outline: none;
+	font-size: 18px;
+	font-family: "Open Sans", sans-serif;
+	padding: 10px 20px 14px;
+	background-color: #fff;
+	left: -9px;
+	margin: -2px;
+	border-right: 15px solid #fff;
+	border-radius: 5px;
+	box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+	width: 40%;
 }

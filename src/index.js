@@ -70,17 +70,20 @@ const fetchData = async () => {
 				let { name, flags, region, capital, population } = result;
 
 				const div = `<div class="card">
+				<div class="container item">
 				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-				<div class="container">
-				<h4><b>${name.common}</b></h4>
-				<p>Population : ${population}</p>
-				<p>Region : ${region}</p>
-				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('${name.common}')">
-					ver mas
-				</button>
+					<h4><b>${name.common}</b></h4>
+					<p>Population : ${population}</p>
+					<p>Region : ${region}</p>
+					<p>Capital : ${capital}</p>
+					<button
+						class="button button-color-card"
+						onclick="sendQuery('${name.common}')"
+					>
+						ver mas
+					</button>
 				</div>
-				</div>`;
+			</div>`;
 
 				return div;
 			};

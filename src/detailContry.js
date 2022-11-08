@@ -104,7 +104,7 @@ const catchingQuery = async () => {
 				}
 			};
 
-			// functions for sort the items before return to html
+			// functions for sort the items before return to htmlya
 			const sortCapital = () => {
 				const liElement = capital.map((item) => {
 					return `<li><p>${item}</p></li>`;
