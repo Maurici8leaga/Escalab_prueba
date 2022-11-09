@@ -61,6 +61,8 @@ const fetchData = async () => {
 
 		let result = await res.json();
 
+		console.log(result[0]);
+
 		// setting the default value
 		infoCountry.innerHTML = "";
 
@@ -69,21 +71,29 @@ const fetchData = async () => {
 				// destructurizamos
 				let { name, flags, region, capital, population } = result;
 
+				const sortCapital = () => {
+					const liElement = capital.map((item) => {
+						return `${item}`;
+					});
+
+					return liElement.join(" - ");
+				};
+
 				const div = `<div class="card">
-				<div class="container item">
-				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-					<h4><b>${name.common}</b></h4>
-					<p>Population : ${population}</p>
-					<p>Region : ${region}</p>
-					<p>Capital : ${capital}</p>
-					<button
-						class="button button-color-card"
-						onclick="sendQuery('${name.common}')"
-					>
-						ver mas
-					</button>
+				<div class="card-flag">
+					<img src="${flags.png}" alt="Avatar" />
 				</div>
-			</div>`;
+				<div class="card-body">
+					<span class="tag">${name.common}</span>
+					<h3>Population : ${population}</h3>
+					<h3>Region : ${region}</h3>
+					<h3>Capital : ${sortCapital()}</h3>
+				</div>
+
+				<button class="button-card" onclick="sendQuery('${name.common}')">
+					Read more
+				</button>
+				</div>`;
 
 				return div;
 			};
@@ -118,17 +128,28 @@ const fetchCountry = async (query) => {
 				// destructurizamos
 				let { name, flags, region, capital, population } = result;
 
+				const sortCapital = () => {
+					const liElement = capital.map((item) => {
+						return `${item}`;
+					});
+
+					return liElement.join(" - ");
+				};
+
 				const div = `<div class="card">
-				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-				<div class="container">
-				<h4><b>${name.common}</b></h4>
-				<p>Population : ${population}</p>
-				<p>Region : ${region}</p>
-				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('${name.common}')">
-					ver mas
-				</button>
+				<div class="card-flag">
+					<img src="${flags.png}" alt="Avatar" />
 				</div>
+				<div class="card-body">
+					<span class="tag">${name.common}</span>
+					<h3>Population : ${population}</h3>
+					<h3>Region : ${region}</h3>
+					<h3>Capital : ${sortCapital()}</h3>
+				</div>
+
+				<button class="button-card" onclick="sendQuery('${name.common}')">
+					Read more
+				</button>
 				</div>`;
 
 				return div;
@@ -166,17 +187,28 @@ const fetchRegion = async (query) => {
 				// destructurizamos
 				let { name, flags, region, capital, population } = result;
 
+				const sortCapital = () => {
+					const liElement = capital.map((item) => {
+						return `${item}`;
+					});
+
+					return liElement.join(" - ");
+				};
+
 				const div = `<div class="card">
-				<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-				<div class="container">
-				<h4><b>${name.common}</b></h4>
-				<p>Population : ${population}</p>
-				<p>Region : ${region}</p>
-				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="sendQuery('${name.common}')">
-					ver mas
-				</button>
+				<div class="card-flag">
+					<img src="${flags.png}" alt="Avatar" />
 				</div>
+				<div class="card-body">
+					<span class="tag">${name.common}</span>
+					<h3>Population : ${population}</h3>
+					<h3>Region : ${region}</h3>
+					<h3>Capital : ${sortCapital()}</h3>
+				</div>
+
+				<button class="button-card" onclick="sendQuery('${name.common}')">
+					Read more
+				</button>
 				</div>`;
 
 				return div;
