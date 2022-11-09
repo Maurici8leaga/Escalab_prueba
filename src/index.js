@@ -61,8 +61,6 @@ const fetchData = async () => {
 
 		let result = await res.json();
 
-		console.log(result[0]);
-
 		// setting the default value
 		infoCountry.innerHTML = "";
 
@@ -72,11 +70,15 @@ const fetchData = async () => {
 				let { name, flags, region, capital, population } = result;
 
 				const sortCapital = () => {
-					const liElement = capital.map((item) => {
-						return `${item}`;
-					});
+					if (capital != undefined) {
+						const liElement = capital.map((item) => {
+							return `${item}`;
+						});
 
-					return liElement.join(" - ");
+						return liElement.join(" - ");
+					} else {
+						return "";
+					}
 				};
 
 				const div = `<div class="card">
