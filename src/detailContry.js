@@ -58,17 +58,15 @@ const catchingQuery = async () => {
 			// functions for check if exist the object before return to the html
 			const coatArmsExist = () => {
 				if (coatOfArms != undefined) {
-					return `<img src="${coatOfArms.png}" alt="Avatar" style="width: 100%" />`;
+					return `<img src="${coatOfArms.png}" alt="CoatOfArms" />`;
 				} else {
-					return "";
+					return `<img src="https://cloupyblob.blob.core.windows.net/cloupy/image-not-found.png" alt="NOFOUND"/>`;
 				}
 			};
 
 			const frenchExist = () => {
 				if (demonyms.fra) {
-					return `<li>
-                    <p>French: Female: ${demonyms.fra.f}, Masculine: ${demonyms.fra.m}</p>
-                </li>`;
+					return `<p>French Female: ${demonyms.fra.f}, French Masculine: ${demonyms.fra.m}</p>`;
 				} else {
 					return "";
 				}
@@ -82,9 +80,9 @@ const catchingQuery = async () => {
 						value: gini[keyOfGini],
 					}));
 
-					return `<p>Gini Coefficient by Country : ${arrayOfGini[0].year} - ${arrayOfGini[0].value}</p>`;
+					return `${arrayOfGini[0].year} - ${arrayOfGini[0].value}`;
 				} else {
-					return "";
+					return "information not found";
 				}
 			};
 
@@ -98,7 +96,7 @@ const catchingQuery = async () => {
 
 			const postalCodeExist = () => {
 				if (postalCode != undefined) {
-					return `<p>Zip code format: ${postalCode.format}</p>`;
+					return `${postalCode.format}`;
 				} else {
 					return "";
 				}
@@ -107,10 +105,10 @@ const catchingQuery = async () => {
 			// functions for sort the items before return to htmlya
 			const sortCapital = () => {
 				const liElement = capital.map((item) => {
-					return `<li><p>${item}</p></li>`;
+					return `${item}`;
 				});
 
-				return liElement.join(" ");
+				return liElement.join(" - ");
 			};
 
 			const sortLanguages = () => {
@@ -120,98 +118,150 @@ const catchingQuery = async () => {
 				}));
 
 				const liElement = arrayLanguages.map((item) => {
-					return `<li><p>${item.language}</p></li>`;
+					return `${item.language}`;
 				});
 
-				return liElement.join(" ");
+				return liElement.join(", ");
 				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
 			};
 
 			const sortTimezones = () => {
 				const liElement = timezones.map((item) => {
-					return `<li><p>${item}</p></li>`;
+					return `${item}`;
 				});
 
-				return liElement.join(" ");
+				return liElement.join(", ");
 				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
 			};
 
-			const div = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-            <div>
-                ${coatArmsExist()}
-            </div>
-			<div class="container">
-				<h4><b>${name.common}</b></h4>
-                <p>Official name: ${name.official}</p>
-                <p>Area: ${area} km²</p>
-                <div>
-                    <p>Capital : </p>
-                    <ul>
-                        ${sortCapital()}
-                    </ul>
-                </div>
-                <p>Latitude: ${capitalInfo.latlng[0]} and longitude: ${
-				capitalInfo.latlng[1]
-			} of the capital</p>
-				<p>Continent : ${continents}</p>
-                <p>Country code Top Level Domain: ${tld[0]}</p>
-                <div>
-                    <p>Currency : ${
-											arrayOfCurrency[0].currency.name
-										} -  Simbolo: ${arrayOfCurrency[0].currency.symbol}</p>
-                </div>
-                <div>
-                    Demonym:
-                    <ul>
-                        <li>
-                            <p>English: Female: ${demonyms.eng.f}, Masculine: ${
-				demonyms.eng.m
-			}</p>
-                        </li>
-                        ${frenchExist()}
-                    </ul>
-                </div>
-                <p>FIFA: ${fifaExist()}</p>
-                <div>
-                    ${giniExist()}
-                </div>
-                <p>International Prefix: Root: ${idd.root} , Suffixes: ${
-				idd.suffixes[0]
-			}</p>
-                <p>Independent: ${independent}</p>
-                <p>Latitude: ${latlng[0]} -  Longitude: ${
-				latlng[1]
-			} of the country</p>
-                <p>Landlocked: ${landlocked}</p>
-                <div>
-                    <p>Languages: </p>
-                    <ul>
-                           ${sortLanguages()}
-                    </ul>
-                </div>
-				<p>Population : ${population} </p>
-				<p>Region : ${region}</p>
-                <p>StartOfWeek: ${startOfWeek}</p>
-                <p>Subregion: ${subregion}</p>
-                <div>
+			// function true or false for independet value and landlocked
+			const truOrFalse = (element) => {
+				if (element == true) {
+					return "Yes";
+				} else {
+					return "No";
+				}
+			};
 
-                    <p>Time zones: </p>
-                    <ul>
-                        ${sortTimezones()}
-                    </ul>
-                </div>
-                <p>Driving side of cars: ${car.side}</p>
-                <div>
-                                Google maps: <a href="${maps.googleMaps}">${
-				maps.googleMaps
-			}</a>
-                </div>
-                <div>                
-                    ${postalCodeExist()}
-                </div>
-			</div>
-		</div>`;
+			const div = `		<div class="infoDetails">
+				<div id="nav">
+						<button class="inputSubmit" >
+							<a href="index.html">Back to menu</a>
+						</button>
+						<div class="title">
+								${name.common}
+						</div>
+				</div>			
+				<div id="info1">
+					<div class="infoData border-radius-top div-color-bright">
+						<p>Official name :</p>
+						<p>${name.official}</p>
+					</div>
+				<div class="infoData div-color-dark  ">
+					<p>Latitude and Longitude :</p>
+					<p>lat ${latlng[0]}  long ${latlng[1]}</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>Capital :</p>
+					<p>${sortCapital()}</p>
+				</div>
+				<div class="infoData div-color-dark">
+				<p>Latitude and Longitude of the capital:</p>
+				<p>lat ${capitalInfo.latlng[0]}  long ${capitalInfo.latlng[1]}</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>Continent :</p>
+					<p>${continents}</p>
+				</div>
+				<div class="infoData div-color-dark">
+					<p>Area :</p>
+					<p>${area} km²</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>Population :</p>
+					<p>${population}</p>
+				</div>
+				<div class="infoData div-color-dark">
+					<p>Region :</p>
+					<p>${region}</p>
+				</div>
+				<div class="infoData div-color-bright">
+				<p>Sub Region :</p>
+				<p>${subregion}</p>
+				</div>
+				<div class="infoData div-color-dark">
+					<div class="infoPropertyData">Language :</div>
+					<div class="infoLisData">${sortLanguages()}</div>
+				</div>
+				<div class="infoData border-radius-bottom div-color-bright">
+					<div class="infoPropertyData">Demonym :</div>
+					<div class="infoLisData">
+						<p>English Female: ${demonyms.eng.f}, English Masculine ${demonyms.eng.m}</p>
+						${frenchExist()}
+					</div>
+				</div>
+				</div>
+				<div id="flag">
+					<div class="container-img-flag">
+						<img src="${flags.png}" alt="Flag" />
+					</div>
+				</div>
+				<div id="coatOfArms">
+					<div class="container-img-coatOfArms">${coatArmsExist()}</div>
+				</div>
+				<div id="info2">
+					<div class="infoData border-radius-top div-color-bright">
+						<p>Currency :</p>
+						<p>${arrayOfCurrency[0].currency.name}, Symbol : ${
+				arrayOfCurrency[0].currency.symbol
+			}</p>
+					</div>
+					<div class="infoData div-color-dark">
+					<p>Gini Coefficient by Country :</p>
+					<p>${giniExist()}</p>
+					</div>
+					<div class="infoData div-color-bright">
+						<div class="infoPropertyData">Time zones :</div>
+						<div class="infoLisData">${sortTimezones()}</div>
+					</div>
+					<div class="infoData div-color-dark">
+					<p>Postal :</p>
+					<p>${postalCodeExist()}</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>International Prefix :</p>
+					<p>Root: ${idd.root} , Suffixes: ${idd.suffixes[0]}</p>
+				</div>
+				<div class="infoData div-color-dark">
+					<p>Country code Top Level Domain :</p>
+					<p>${tld[0]}</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>Independent :</p>
+					<p>${truOrFalse(independent)}</p>
+				</div>
+				<div class="infoData div-color-dark">
+					<p>Landlocked :</p>
+					<p>${truOrFalse(landlocked)}</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>Google maps :</p>
+					<a class="a-color" href="${maps.googleMaps}">${maps.googleMaps}</a>
+				</div>
+				<div class="infoData div-color-dark">
+				<p>Start Of Week :</p>
+				<p>${startOfWeek}</p>
+				</div>
+				<div class="infoData div-color-bright">
+					<p>Driving side of cars :</p>
+					<p>${car.side}</p>
+				</div>
+				<div class="infoData  border-radius-bottom div-color-dark">
+					<p>FIFA :</p>
+					<p>${fifaExist()}</p>
+				</div>
+				</div>
+				</div>`;
 
 			return div;
 		};

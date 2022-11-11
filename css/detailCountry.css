@@ -1,0 +1,257 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans", sans-serif;
+	box-sizing: border-box;
+	/* overflow: scroll; */
+}
+
+img {
+	max-width: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* container */
+
+.container-img-flag {
+	height: auto;
+	width: auto;
+	border-color: #0892d0;
+	border-image: none;
+	border-radius: 0;
+	border-style: solid;
+	border-width: 5px;
+	margin-top: 15%;
+}
+
+.container-img-flag:hover {
+	border-color: transparent;
+	border-radius: 0%;
+	border-style: none;
+	border-width: 0px;
+	height: auto;
+	width: auto;
+	overflow: hidden;
+	transform: scale(1.03);
+	transition: all 0.5s;
+}
+
+.container-img-flag img {
+	width: 100%;
+	height: auto;
+	margin-top: 4px;
+	/* margin-bottom: 30%; */
+	/* display: flex; */
+	/* min-height: 317px; */
+}
+
+.container-img-coatOfArms {
+	border-color: #0892d0;
+	border-image: none;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 5px;
+	height: auto;
+	width: auto;
+	overflow: hidden;
+}
+
+.container-img-coatOfArms:hover {
+	border-color: transparent;
+	border-radius: 0%;
+	border-style: none;
+	border-width: 0px;
+	height: auto;
+	width: auto;
+	overflow: hidden;
+	transform: scale(1.03);
+	transition: all 0.5s;
+}
+
+.container-img-coatOfArms img {
+	width: 100%;
+	height: auto;
+	margin-top: 3%;
+	/* margin-bottom: 0%; */
+	/* display: flex; */
+	/* min-height: 314px; */
+	/* background-size: cover; */
+}
+
+/* grid */
+.infoDetails {
+	display: grid;
+	height: auto;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 0.2fr 0.4fr 0.4fr;
+	grid-template-areas:
+		"nav nav nav"
+		"info1 info1 flag"
+		"coatOfArms info2 info2";
+	grid-gap: 0.2rem;
+	text-align: center;
+
+	background-color: #000;
+}
+
+#info1 {
+	color: white;
+	grid-area: info1;
+	height: auto;
+	min-width: 70%;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: 30px;
+	margin-right: 5px;
+
+	/* display: flex;
+	flex-direction: column; */
+}
+
+#flag {
+	grid-area: flag;
+	height: auto;
+	min-width: 30%;
+	margin-right: 30px;
+}
+
+#coatOfArms {
+	grid-area: coatOfArms;
+	height: auto;
+	min-width: 30%;
+	margin-left: 30px;
+}
+
+#info2 {
+	color: white;
+	grid-area: info2;
+	height: auto;
+	min-width: 60%;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	margin-right: 30px;
+	margin-left: 5px;
+	/* display: flex;
+	flex-direction: column; */
+}
+
+/* titles */
+
+#nav {
+	background-color: black;
+	color: white;
+	grid-area: nav;
+	margin: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	/* font-size: 50px;
+	font-weight: 500;
+	font-family: "Montserrat", sans-serif; */
+	min-width: 600px;
+	padding: 8%;
+	background: url(https://images4.alphacoders.com/803/80316.jpg) no-repeat
+		center center/cover;
+}
+
+.title {
+	font-weight: 500;
+	font-size: 50px;
+	font-family: "Montserrat", sans-serif;
+}
+
+/* div & list items */
+.infoData {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	text-transform: uppercase;
+
+	background-color: beige;
+	color: black;
+}
+
+.border-radius-top {
+	border-radius: 15px 15px 0 0;
+}
+
+.border-radius-bottom {
+	border-radius: 0 0 15px 15px;
+}
+
+.infoPropertyData {
+	width: 107px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.infoLisData {
+	width: 450px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.div-color-bright {
+	background-color: #e4d5b7;
+	filter: brightness(100%);
+	color: #000;
+}
+
+.div-color-dark {
+	background-color: #e4d5b7;
+	filter: brightness(90%);
+	color: #000;
+}
+
+.a-color {
+	color: black;
+}
+
+/* buttons */
+
+.inputSubmit {
+	position: relative;
+	/* left: -5px;
+	margin-left: 10px;
+	width: 150px;
+	height: 50px; */
+	border: none;
+	/* box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5); */
+	outline: none;
+	cursor: pointer;
+	right: 7%;
+	/* left: 0px; */
+	background: transparent;
+	/* background-color: rgba(8, 146, 208); */
+}
+
+.inputSubmit a {
+	color: #0892d0;
+	font-size: 20px;
+}
+
+/* media querys */
+/* // mobile size */
+@media (min-width: 320px) and (max-width: 480px) {
+	.infoDetails {
+		grid-template-columns: 1fr;
+		grid-template-rows: 0.2fr 0.4fr 0.5fr 0.4fr 0.5fr;
+		grid-template-areas:
+			"nav"
+			"flag"
+			"info1"
+			"coatOfArms"
+			"info2";
+	}
+}
