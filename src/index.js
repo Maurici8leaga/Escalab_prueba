@@ -48,6 +48,62 @@ const sendQuery = (value) => {
 	// 2) adicional al renderizar la pag estamos agregando un query a ese URL de esa pag donde es "?pais=" es el nombre del query y value el valor a pasar de esta pag a la otra
 };
 
+// helpers function
+
+const dataHandler = (element) => {
+	if (element == 0 || element == undefined) {
+		return "N/A";
+	} else {
+		return `${element}`;
+	}
+};
+
+const sortCapital = (element) => {
+	if (element != undefined) {
+		const liElement = element.map((item) => {
+			return `${item}`;
+		});
+
+		return liElement.join(" - ");
+	} else {
+		return "N/A";
+	}
+};
+
+const contenido = (element) => {
+	let { name, flags, region, capital, population } = element;
+
+	const div = `<div class="card">
+	<div class="card-flag">
+		<img src="${flags.png}" alt="Avatar" />
+	</div>
+	<div class="card-body">
+		<span class="tag">${name.common}</span>
+		<h3>Population : ${dataHandler(population)}</h3>
+		<h3>Region : ${region}</h3>
+		<h3>Capital : ${sortCapital(capital)}</h3>
+	</div>
+
+	<button class="button-card" onclick="sendQuery('${name.common}')">
+		Read more
+	</button>
+	</div>`;
+
+	return div;
+};
+
+const notFound = () => {
+	const divNotFound = `<div class="container-notFound">
+		<div class="notFound">
+			<h1>404!</h1>
+			<h2>NOT FOUND</h2>
+			<p>Sorry there are not country found in the data base</p>
+		</div>
+		</div>`;
+
+	return divNotFound;
+};
+
 // fetchs data
 
 const fetchData = async () => {
@@ -63,57 +119,16 @@ const fetchData = async () => {
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			const contenido = () => {
-				// destructurizamos
-				let { name, flags, region, capital, population } = result;
-
-				const sortCapital = () => {
-					if (capital != undefined) {
-						const liElement = capital.map((item) => {
-							return `${item}`;
-						});
-
-						return liElement.join(" - ");
-					} else {
-						return "";
-					}
-				};
-
-				const div = `<div class="card">
-				<div class="card-flag">
-					<img src="${flags.png}" alt="Avatar" />
-				</div>
-				<div class="card-body">
-					<span class="tag">${name.common}</span>
-					<h3>Population : ${population}</h3>
-					<h3>Region : ${region}</h3>
-					<h3>Capital : ${sortCapital()}</h3>
-				</div>
-
-				<button class="button-card" onclick="sendQuery('${name.common}')">
-					Read more
-				</button>
-				</div>`;
-
-				return div;
-			};
-
 			let div = document.createElement("div");
 			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido();
+			div.innerHTML = contenido(result);
 			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
 			// este nuevo div con la nueva informacion y la adjunta en el HTML
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		const notFound = `		<div class="container-notFound">
-		<div class="notFound">
-			<h1>404!</h1>
-			<h2>NOT FOUND</h2>
-		</div>
-		</div>`;
 		let div = document.createElement("div");
-		div.innerHTML = notFound;
+		div.innerHTML = notFound();
 		infoCountry.appendChild(div);
 		console.log(error);
 	}
@@ -133,54 +148,16 @@ const fetchCountry = async (query) => {
 		searchCountry.value = "";
 
 		result.map((result) => {
-			const contenido = () => {
-				// destructurizamos
-				let { name, flags, region, capital, population } = result;
-
-				const sortCapital = () => {
-					const liElement = capital.map((item) => {
-						return `${item}`;
-					});
-
-					return liElement.join(" - ");
-				};
-
-				const div = `<div class="card">
-				<div class="card-flag">
-					<img src="${flags.png}" alt="Avatar" />
-				</div>
-				<div class="card-body">
-					<span class="tag">${name.common}</span>
-					<h3>Population : ${population}</h3>
-					<h3>Region : ${region}</h3>
-					<h3>Capital : ${sortCapital()}</h3>
-				</div>
-
-				<button class="button-card" onclick="sendQuery('${name.common}')">
-					Read more
-				</button>
-				</div>`;
-
-				return div;
-			};
-
 			let div = document.createElement("div");
 			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido();
+			div.innerHTML = contenido(result);
 			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
 			// este nuevo div con la nueva informacion y la adjunta en el HTML
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		const notFound = `		<div class="container-notFound">
-		<div class="notFound">
-			<h1>404!</h1>
-			<h2>NOT FOUND</h2>
-			<p>Sorry there are not country found in the data base</p>
-		</div>
-		</div>`;
 		let div = document.createElement("div");
-		div.innerHTML = notFound;
+		div.innerHTML = notFound();
 		infoCountry.appendChild(div);
 		console.log(error);
 	}
@@ -198,54 +175,16 @@ const fetchRegion = async (query) => {
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			const contenido = () => {
-				// destructurizamos
-				let { name, flags, region, capital, population } = result;
-
-				const sortCapital = () => {
-					const liElement = capital.map((item) => {
-						return `${item}`;
-					});
-
-					return liElement.join(" - ");
-				};
-
-				const div = `<div class="card">
-				<div class="card-flag">
-					<img src="${flags.png}" alt="Avatar" />
-				</div>
-				<div class="card-body">
-					<span class="tag">${name.common}</span>
-					<h3>Population : ${population}</h3>
-					<h3>Region : ${region}</h3>
-					<h3>Capital : ${sortCapital()}</h3>
-				</div>
-
-				<button class="button-card" onclick="sendQuery('${name.common}')">
-					Read more
-				</button>
-				</div>`;
-
-				return div;
-			};
-
 			let div = document.createElement("div");
 			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido();
+			div.innerHTML = contenido(result);
 			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
 			// este nuevo div con la nueva informacion y la adjunta en el HTML
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		const notFound = `		<div class="container-notFound">
-		<div class="notFound">
-			<h1>404!</h1>
-			<h2>NOT FOUND</h2>
-			<p>Sorry there are not country found in the data base</p>
-		</div>
-		</div>`;
 		let div = document.createElement("div");
-		div.innerHTML = notFound;
+		div.innerHTML = notFound();
 		infoCountry.appendChild(div);
 		console.log(error);
 	}

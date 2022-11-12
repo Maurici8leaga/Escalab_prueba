@@ -217,7 +217,7 @@ hr {
 .loading {
 	display: flex;
 	justify-content: center;
-	margin-top: 10%;
+	padding-top: 10%;
 }
 
 .loading::after {
@@ -272,7 +272,7 @@ hr {
 	}
 
 	.loading {
-		margin-top: 50%;
+		padding-top: 50%;
 	}
 }
 
@@ -297,6 +297,6 @@ hr {
 	}
 
 	.loading {
-		margin-top: 30%;
+		padding-top: 30%;
 	}
 }

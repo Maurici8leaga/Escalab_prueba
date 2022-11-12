@@ -55,6 +55,8 @@ const catchingQuery = async () => {
 				postalCode,
 			} = result[0];
 
+			console.log(result[0].coatOfArms);
+
 			// functions for check if exist the object before return to the html
 
 			const currenciesExist = () => {
@@ -70,15 +72,15 @@ const catchingQuery = async () => {
 
 					return `${arrayOfCurrency[0].currency.name}, Symbol : ${arrayOfCurrency[0].currency.symbol}`;
 				} else {
-					return "information not found";
+					return "N/A";
 				}
 			};
 
 			const coatArmsExist = () => {
-				if (coatOfArms != undefined) {
+				if (coatOfArms.png != undefined) {
 					return `<img src="${coatOfArms.png}" alt="CoatOfArms" />`;
 				} else {
-					return `<img src="https://cloupyblob.blob.core.windows.net/cloupy/image-not-found.png" alt="NOFOUND"/>`;
+					return `<img src="https://i.scdn.co/image/ab67616d00001e02717d713bd791d0cf115611ab" alt="NOFOUND"/>`;
 				}
 			};
 
@@ -100,7 +102,7 @@ const catchingQuery = async () => {
 
 					return `${arrayOfGini[0].year} - ${arrayOfGini[0].value}`;
 				} else {
-					return "information not found";
+					return "N/A";
 				}
 			};
 
@@ -120,13 +122,15 @@ const catchingQuery = async () => {
 				}
 			};
 
-			// functions for sort the items before return to htmlya
-			const sortCapital = () => {
-				const liElement = capital.map((item) => {
+			// functions for sort the items before return to html
+
+			const sortElement = (element) => {
+				const liElement = element.map((item) => {
 					return `${item}`;
 				});
 
-				return liElement.join(" - ");
+				return liElement.join(", ");
+				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
 			};
 
 			const sortLanguages = () => {
@@ -137,15 +141,6 @@ const catchingQuery = async () => {
 
 				const liElement = arrayLanguages.map((item) => {
 					return `${item.language}`;
-				});
-
-				return liElement.join(", ");
-				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
-			};
-
-			const sortTimezones = () => {
-				const liElement = timezones.map((item) => {
-					return `${item}`;
 				});
 
 				return liElement.join(", ");
@@ -181,7 +176,7 @@ const catchingQuery = async () => {
 				</div>
 				<div class="infoData div-color-bright">
 					<p>Capital :</p>
-					<p>${sortCapital()}</p>
+					<p>${sortElement(capital)}</p>
 				</div>
 				<div class="infoData div-color-dark">
 				<p>Latitude and Longitude of the capital:</p>
@@ -238,7 +233,7 @@ const catchingQuery = async () => {
 					</div>
 					<div class="infoData div-color-bright">
 						<div class="infoPropertyData">Time zones :</div>
-						<div class="infoLisData">${sortTimezones()}</div>
+						<div class="infoLisData">${sortElement(timezones)}</div>
 					</div>
 					<div class="infoData div-color-dark">
 					<p>Postal :</p>
@@ -286,13 +281,23 @@ const catchingQuery = async () => {
 		div.innerHTML = dataCountry();
 		infoDetails.appendChild(div);
 	} catch (error) {
+		// const notFound = `<div class="container-notFound">
+		// 		<div class="notFound">
+		// 			<h1>404!</h1>
+		// 			<h2>NOT FOUND</h2>
+		// 			<p>Sorry there are not country found in the data base</p>
+		// 		</div>
+		// 		</div>`;
 		const notFound = `		<div class="container-notFound">
-		<div class="notFound">
-			<h1>404!</h1>
-			<h2>NOT FOUND</h2>
-			<p>Sorry there are not country found in the data base</p>
-		</div>
-		</div>`;
+			<div class="notFound">
+				<h1>404!</h1>
+				<h2>NOT FOUND</h2>
+				<p>Sorry there are not country found in the data base</p>
+				<button class="inputBack" >
+					<a href="index.html">Back to menu</a>
+				</button>
+			</div>
+			</div>`;
 		let div = document.createElement("div");
 		div.innerHTML = notFound;
 		infoDetails.appendChild(div);
