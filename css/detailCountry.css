@@ -3,7 +3,6 @@
 	padding: 0;
 	font-family: "Open Sans", sans-serif;
 	box-sizing: border-box;
-	/* overflow: scroll; */
 }
 
 img {
@@ -12,6 +11,12 @@ img {
 
 a {
 	text-decoration: none;
+}
+
+#infoDetails {
+	background-color: #000;
+	width: 100%;
+	height: 100%;
 }
 
 /* container */
@@ -43,9 +48,6 @@ a {
 	width: 100%;
 	height: auto;
 	margin-top: 4px;
-	/* margin-bottom: 30%; */
-	/* display: flex; */
-	/* min-height: 317px; */
 }
 
 .container-img-coatOfArms {
@@ -75,10 +77,6 @@ a {
 	width: 100%;
 	height: auto;
 	margin-top: 3%;
-	/* margin-bottom: 0%; */
-	/* display: flex; */
-	/* min-height: 314px; */
-	/* background-size: cover; */
 }
 
 /* grid */
@@ -98,7 +96,7 @@ a {
 }
 
 #info1 {
-	color: white;
+	/* color: white; */
 	grid-area: info1;
 	height: auto;
 	min-width: 70%;
@@ -106,9 +104,6 @@ a {
 	margin-bottom: 5%;
 	margin-left: 30px;
 	margin-right: 5px;
-
-	/* display: flex;
-	flex-direction: column; */
 }
 
 #flag {
@@ -126,7 +121,7 @@ a {
 }
 
 #info2 {
-	color: white;
+	/* color: white; */
 	grid-area: info2;
 	height: auto;
 	min-width: 60%;
@@ -134,8 +129,6 @@ a {
 	margin-bottom: 10%;
 	margin-right: 30px;
 	margin-left: 5px;
-	/* display: flex;
-	flex-direction: column; */
 }
 
 /* titles */
@@ -148,11 +141,9 @@ a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	align-content: center;
 	color: white;
-	/* font-size: 50px;
-	font-weight: 500;
-	font-family: "Montserrat", sans-serif; */
-	min-width: 600px;
+	/* min-width: 600px; */
 	padding: 8%;
 	background: url(https://images4.alphacoders.com/803/80316.jpg) no-repeat
 		center center/cover;
@@ -173,10 +164,8 @@ a {
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 5px;
+	padding-bottom: 5px;
 	text-transform: uppercase;
-
-	background-color: beige;
-	color: black;
 }
 
 .border-radius-top {
@@ -192,6 +181,7 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: 5px;
 }
 
 .infoLisData {
@@ -200,6 +190,7 @@ a {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: 5px;
 }
 
 .div-color-bright {
@@ -222,28 +213,51 @@ a {
 
 .inputSubmit {
 	position: relative;
-	/* left: -5px;
-	margin-left: 10px;
-	width: 150px;
-	height: 50px; */
 	border: none;
-	/* box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.5); */
 	outline: none;
 	cursor: pointer;
-	right: 7%;
-	/* left: 0px; */
+	right: -10%;
 	background: transparent;
-	/* background-color: rgba(8, 146, 208); */
+	margin-right: 10px;
 }
 
 .inputSubmit a {
-	color: #0892d0;
+	color: yellow;
 	font-size: 20px;
 }
 
+/* spinner */
+.loading {
+	display: flex;
+	justify-content: center;
+	padding-top: 20%;
+}
+
+.loading::after {
+	content: "";
+	width: 50px;
+	height: 50px;
+	border: 10px solid #dddddd;
+	border-top-color: #0892d0;
+	border-radius: 50%;
+	animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+	to {
+		transform: rotate(1turn);
+	}
+}
+
 /* media querys */
+
 /* // mobile size */
 @media (min-width: 320px) and (max-width: 480px) {
+	#nav {
+		flex-direction: column;
+		padding: 12%;
+	}
+
 	.infoDetails {
 		grid-template-columns: 1fr;
 		grid-template-rows: 0.2fr 0.4fr 0.5fr 0.4fr 0.5fr;
@@ -253,5 +267,126 @@ a {
 			"info1"
 			"coatOfArms"
 			"info2";
+		overflow: auto;
+	}
+
+	.title {
+		font-size: 30px;
+	}
+
+	.inputSubmit {
+		right: 0%;
+	}
+
+	.inputSubmit a {
+		font-size: 15px;
+	}
+
+	#flag {
+		min-width: 80%;
+		margin-right: 30px;
+		margin-left: 30px;
+	}
+
+	#coatOfArms {
+		min-width: 80%;
+		margin-left: 30px;
+		margin-right: 30px;
+	}
+
+	#info1 {
+		margin-right: 30px;
+	}
+
+	#info2 {
+		margin-left: 30px;
+		margin-top: 5%;
+	}
+
+	.infoData {
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+
+	.infoData p {
+		width: 70%;
+		font-size: 14px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
+
+	.infoPropertyData {
+		width: 70%;
+	}
+
+	.infoLisData {
+		width: 50%;
+	}
+
+	.a-color {
+		display: flex;
+		align-items: center;
+		align-content: center;
+		font-size: 10px;
+	}
+}
+
+/* tablet size */
+@media (min-width: 481px) and (max-width: 769px) {
+	.infoDetails {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 0.2fr 0.4fr 0.4fr;
+		grid-template-areas:
+			"nav nav"
+			"info1 flag"
+			"coatOfArms info2";
+		overflow: auto;
+	}
+
+	#coatOfArms {
+		margin-right: 5px;
+		margin-left: 30px;
+	}
+
+	#info2 {
+		margin-right: 30px;
+		margin-left: 5px;
+	}
+
+	.container-img-flag {
+		margin-top: 50%;
+	}
+
+	.infoData {
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+
+	.infoData p {
+		width: 70%;
+		font-size: 14px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
+
+	.infoPropertyData {
+		width: 70%;
+		font-size: 14px;
+	}
+
+	.infoLisData {
+		width: 70%;
+		font-size: 14px;
+	}
+
+	.a-color {
+		display: flex;
+		align-items: center;
+		align-content: center;
+		font-size: 10px;
 	}
 }

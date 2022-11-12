@@ -30,9 +30,7 @@ const filterRegion = () => {
 
 // creamos un loading para cuando la data este cargando
 const loading = () => {
-	infoCountry.innerHTML = `<div>
-    <p>Loading ....</p>
-</div>`;
+	infoCountry.innerHTML = `<div class="loading"></div>`;
 };
 
 // reset function for select region element
@@ -61,7 +59,7 @@ const fetchData = async () => {
 
 		let result = await res.json();
 
-		// setting the default value
+		// setting the default value and stop the loading spinner
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
@@ -108,6 +106,15 @@ const fetchData = async () => {
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
+		const notFound = `		<div class="container-notFound">
+		<div class="notFound">
+			<h1>404!</h1>
+			<h2>NOT FOUND</h2>
+		</div>
+		</div>`;
+		let div = document.createElement("div");
+		div.innerHTML = notFound;
+		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };
@@ -165,9 +172,15 @@ const fetchCountry = async (query) => {
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		const noFound = "Lo siento no se encontro el pais";
+		const notFound = `		<div class="container-notFound">
+		<div class="notFound">
+			<h1>404!</h1>
+			<h2>NOT FOUND</h2>
+			<p>Sorry there are not country found in the data base</p>
+		</div>
+		</div>`;
 		let div = document.createElement("div");
-		div.innerHTML = noFound;
+		div.innerHTML = notFound;
 		infoCountry.appendChild(div);
 		console.log(error);
 	}
@@ -224,6 +237,16 @@ const fetchRegion = async (query) => {
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
+		const notFound = `		<div class="container-notFound">
+		<div class="notFound">
+			<h1>404!</h1>
+			<h2>NOT FOUND</h2>
+			<p>Sorry there are not country found in the data base</p>
+		</div>
+		</div>`;
+		let div = document.createElement("div");
+		div.innerHTML = notFound;
+		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };

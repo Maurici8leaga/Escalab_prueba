@@ -2,7 +2,13 @@ const infoDetails = document.getElementById("infoDetails");
 
 window.addEventListener("load", () => {
 	catchingQuery();
+	loading();
 });
+
+// creamos un loading para cuando la data este cargando
+const loading = () => {
+	infoDetails.innerHTML = `<div class="loading"></div>`;
+};
 
 const catchingQuery = async () => {
 	// document.location.search va a ser el params del URL y replace es un metodo de regular expression lo que hace es buscar la coincidencia con el primero parametro de la funcion
@@ -16,6 +22,9 @@ const catchingQuery = async () => {
 		res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
 
 		let result = await res.json();
+
+		//  setting the default value and stop the loading spinner
+		infoDetails.innerHTML = "";
 
 		const dataCountry = () => {
 			const {
@@ -46,16 +55,25 @@ const catchingQuery = async () => {
 				postalCode,
 			} = result[0];
 
-			// dandole nombre a la propieda de currency ya que varia esta propiedad varia por pais hacemos esto para poder hacerlo de forma generica
-			// y por acceder a la propiedad en todos los paises
-			const keysOfCurrency = Object.keys(currencies);
-			const arrayOfCurrency = keysOfCurrency.map((keysOfCurrency) => ({
-				// creamos un array de objetos con estas propiedades
-				abbreviation: keysOfCurrency,
-				currency: currencies[keysOfCurrency],
-			}));
-
 			// functions for check if exist the object before return to the html
+
+			const currenciesExist = () => {
+				if (currencies != undefined) {
+					// dandole nombre a la propieda de currency ya que varia esta propiedad varia por pais hacemos esto para poder hacerlo de forma generica
+					// y por acceder a la propiedad en todos los paises
+					const keysOfCurrency = Object.keys(currencies);
+					const arrayOfCurrency = keysOfCurrency.map((keysOfCurrency) => ({
+						// creamos un array de objetos con estas propiedades
+						abbreviation: keysOfCurrency,
+						currency: currencies[keysOfCurrency],
+					}));
+
+					return `${arrayOfCurrency[0].currency.name}, Symbol : ${arrayOfCurrency[0].currency.symbol}`;
+				} else {
+					return "information not found";
+				}
+			};
+
 			const coatArmsExist = () => {
 				if (coatOfArms != undefined) {
 					return `<img src="${coatOfArms.png}" alt="CoatOfArms" />`;
@@ -98,7 +116,7 @@ const catchingQuery = async () => {
 				if (postalCode != undefined) {
 					return `${postalCode.format}`;
 				} else {
-					return "";
+					return "information not found";
 				}
 			};
 
@@ -145,12 +163,12 @@ const catchingQuery = async () => {
 
 			const div = `		<div class="infoDetails">
 				<div id="nav">
-						<button class="inputSubmit" >
-							<a href="index.html">Back to menu</a>
-						</button>
-						<div class="title">
-								${name.common}
-						</div>
+					<div class="title">
+					${name.common}
+					</div>
+					<button class="inputSubmit" >
+						<a href="index.html">Back to menu</a>
+					</button>
 				</div>			
 				<div id="info1">
 					<div class="infoData border-radius-top div-color-bright">
@@ -212,9 +230,7 @@ const catchingQuery = async () => {
 				<div id="info2">
 					<div class="infoData border-radius-top div-color-bright">
 						<p>Currency :</p>
-						<p>${arrayOfCurrency[0].currency.name}, Symbol : ${
-				arrayOfCurrency[0].currency.symbol
-			}</p>
+						<p>${currenciesExist()}</p>
 					</div>
 					<div class="infoData div-color-dark">
 					<p>Gini Coefficient by Country :</p>
@@ -270,6 +286,16 @@ const catchingQuery = async () => {
 		div.innerHTML = dataCountry();
 		infoDetails.appendChild(div);
 	} catch (error) {
+		const notFound = `		<div class="container-notFound">
+		<div class="notFound">
+			<h1>404!</h1>
+			<h2>NOT FOUND</h2>
+			<p>Sorry there are not country found in the data base</p>
+		</div>
+		</div>`;
+		let div = document.createElement("div");
+		div.innerHTML = notFound;
+		infoDetails.appendChild(div);
 		console.log(error);
 	}
 };
