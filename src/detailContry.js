@@ -5,16 +5,13 @@ window.addEventListener("load", () => {
 	loading();
 });
 
-// creamos un loading para cuando la data este cargando
+// function spinner for loading page
 const loading = () => {
 	infoDetails.innerHTML = `<div class="loading"></div>`;
 };
 
 const catchingQuery = async () => {
-	// document.location.search va a ser el params del URL y replace es un metodo de regular expression lo que hace es buscar la coincidencia con el primero parametro de la funcion
-	// y lo remplazara con el 2do parametro en este caso ""
 	let query = document.location.search.replace(/^.*?\=/, "");
-	// esto -> /^.*?\=/ <- es un regular expression el cual este en specifico buscara el valor que coincida despues de un ? seguido de un =
 
 	let res;
 
@@ -55,17 +52,12 @@ const catchingQuery = async () => {
 				postalCode,
 			} = result[0];
 
-			console.log(result[0].coatOfArms);
-
 			// functions for check if exist the object before return to the html
 
 			const currenciesExist = () => {
 				if (currencies != undefined) {
-					// dandole nombre a la propieda de currency ya que varia esta propiedad varia por pais hacemos esto para poder hacerlo de forma generica
-					// y por acceder a la propiedad en todos los paises
 					const keysOfCurrency = Object.keys(currencies);
 					const arrayOfCurrency = keysOfCurrency.map((keysOfCurrency) => ({
-						// creamos un array de objetos con estas propiedades
 						abbreviation: keysOfCurrency,
 						currency: currencies[keysOfCurrency],
 					}));
@@ -110,7 +102,7 @@ const catchingQuery = async () => {
 				if (fifa != undefined) {
 					return `${fifa}`;
 				} else {
-					return "does not apply";
+					return "N/A";
 				}
 			};
 
@@ -118,7 +110,7 @@ const catchingQuery = async () => {
 				if (postalCode != undefined) {
 					return `${postalCode.format}`;
 				} else {
-					return "information not found";
+					return "N/A";
 				}
 			};
 
@@ -130,7 +122,6 @@ const catchingQuery = async () => {
 				});
 
 				return liElement.join(", ");
-				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
 			};
 
 			const sortLanguages = () => {
@@ -144,7 +135,6 @@ const catchingQuery = async () => {
 				});
 
 				return liElement.join(", ");
-				//usamos join() para quitar el separador de commas y lo reemplace por espacios en blanco
 			};
 
 			// function true or false for independet value and landlocked
@@ -281,13 +271,6 @@ const catchingQuery = async () => {
 		div.innerHTML = dataCountry();
 		infoDetails.appendChild(div);
 	} catch (error) {
-		// const notFound = `<div class="container-notFound">
-		// 		<div class="notFound">
-		// 			<h1>404!</h1>
-		// 			<h2>NOT FOUND</h2>
-		// 			<p>Sorry there are not country found in the data base</p>
-		// 		</div>
-		// 		</div>`;
 		const notFound = `		<div class="container-notFound">
 			<div class="notFound">
 				<h1>404!</h1>
