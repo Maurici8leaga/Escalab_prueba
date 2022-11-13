@@ -11,38 +11,37 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 	<body>
-		<div class="container">
-			<div class="container banner">
-				<h1 class="title-header">COUNTRY FINDER</h1>
+		<div class="nav">
+			<h1 class="title-header">COUNTRY FINDER</h1>
 
-				<div class="formSearch">
-					<input
-						class="inputSearch"
-						type="text"
-						id="searchCountry"
-						placeholder="Search for a contry..."
-						onchange="searchBar()"
-					/>
+			<div class="formSearch">
+				<input
+					class="inputSearch"
+					type="text"
+					id="searchCountry"
+					placeholder="Search for a contry..."
+					onchange="searchBar()"
+				/>
 
-					<select name="Region" id="searchRegion" onchange="filterRegion();">
-						<option value="">Region</option>
-						<option value="Africa">Africa</option>
-						<option value="Americas">Americas</option>
-						<option value="Asia">Asia</option>
-						<option value="Europe">Europe</option>
-						<option value="Oceania">Oceania</option>
-					</select>
+				<select name="Region" id="searchRegion" onchange="filterRegion();">
+					<option value="">Region</option>
+					<option value="Africa">Africa</option>
+					<option value="Americas">Americas</option>
+					<option value="Asia">Asia</option>
+					<option value="Europe">Europe</option>
+					<option value="Oceania">Oceania</option>
+				</select>
 
-					<input
-						type="submit"
-						class="inputSubmit"
-						value="Search"
-						onclick="searchBar()"
-					/>
-				</div>
+				<input
+					type="submit"
+					class="inputSubmit"
+					value="Search"
+					onclick="searchBar()"
+				/>
 			</div>
-
-			<hr/>
+		</div>
+		<hr/>
+		<div class="container">
 			<div class="container cards" id="infoCountry"></div>
 		</div> 
 		<script defer src="index.js" charset="utf-8"></script>

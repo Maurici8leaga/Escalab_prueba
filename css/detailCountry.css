@@ -149,12 +149,13 @@ a {
 	grid-area: nav;
 	margin: 0px;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	align-content: center;
 	color: white;
 	/* min-width: 600px; */
-	padding: 8%;
+	padding: 5%;
 	background: url(https://images4.alphacoders.com/803/80316.jpg) no-repeat
 		center center/cover;
 }
@@ -163,6 +164,7 @@ a {
 	font-weight: 500;
 	font-size: 50px;
 	font-family: "Montserrat", sans-serif;
+	text-transform: uppercase;
 }
 
 /* div & list items */
@@ -226,14 +228,17 @@ a {
 	border: none;
 	outline: none;
 	cursor: pointer;
-	right: -10%;
-	background: transparent;
-	margin-right: 10px;
+	width: 120px;
+	height: 40px;
+	background-color: rgba(8, 146, 208);
+	border-radius: 5px;
+	box-shadow: 4px 5px 4px rgb(0 0 0 / 50%);
+	margin-left: 10px;
 }
 
 .inputSubmit a {
-	color: yellow;
-	font-size: 20px;
+	color: #fff;
+	font-size: 15px;
 }
 
 .inputBack {
@@ -299,8 +304,7 @@ a {
 /* // mobile size */
 @media (min-width: 320px) and (max-width: 480px) {
 	#nav {
-		flex-direction: column;
-		padding: 12%;
+		padding: 10%;
 	}
 
 	.infoDetails {
@@ -320,11 +324,12 @@ a {
 	}
 
 	.inputSubmit {
-		right: 0%;
+		width: 85px;
+		height: 30px;
 	}
 
 	.inputSubmit a {
-		font-size: 15px;
+		font-size: 12px;
 	}
 
 	#flag {
@@ -392,6 +397,10 @@ a {
 			"info1 flag"
 			"coatOfArms info2";
 		overflow: auto;
+	}
+
+	#nav {
+		padding: 8%;
 	}
 
 	#coatOfArms {

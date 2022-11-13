@@ -16,7 +16,7 @@ const searchBar = () => {
 };
 
 const filterRegion = () => {
-	const region = document.getElementById("searchRegion").value;
+	const region = searchRegion.value;
 	loading();
 	fetchRegion(region);
 	reset();
