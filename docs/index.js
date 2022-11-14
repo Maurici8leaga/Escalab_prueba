@@ -31,7 +31,7 @@ const filterRegion = () => {
 
 // function for send the query to the next page and change to next page
 const sendQuery = (value) => {
-	window.document.location = "detailContry.html" + "?country=" + value;
+	window.document.location = "./docs/detailContry.html" + "?country=" + value;
 };
 
 // helpers function
