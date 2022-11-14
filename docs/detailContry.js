@@ -146,7 +146,7 @@ const catchingQuery = async () => {
 					${name.common}
 					</div>
 					<button class="inputSubmit" >
-						<a href="index.html">Back to menu</a>
+						<a href="../index.html">Back to menu</a>
 					</button>
 				</div>			
 				<div id="info1">
@@ -271,7 +271,7 @@ const catchingQuery = async () => {
 				<h2>NOT FOUND</h2>
 				<p>Sorry there are not country found in the data base</p>
 				<button class="inputBack" >
-					<a href="index.html">Back to menu</a>
+					<a href="../index.html">Back to menu</a>
 				</button>
 			</div>
 			</div>`;
