@@ -6,30 +6,44 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Escalab Test</title>
 		<link rel="stylesheet" href="../css/index.css" />
-	</head>
-	<body id="page1">
-		<header>
-			<h1>Countries</h1>
-		</header>
+		<!-- Goggle fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+	<body>
+		<div class="nav">
+			<h1 class="title-header">COUNTRY FINDER</h1>
 
-		<div>
-			<label for="pais">Busca un pais</label>
-			<!-- <input type="text" id="searchCountry" onchange="addUrlParameter();" /> -->
-			<input type="text" id="searchCountry" onchange="searchBar()" />
+			<div class="formSearch">
+				<input
+					class="inputSearch"
+					type="text"
+					id="searchCountry"
+					placeholder="Search for a contry..."
+					onchange="searchBar()"
+				/>
 
-			<label for="region">Filter</label>
-			<select name="Region" id="searchRegion" onchange="filterRegion();">
-				<option value="">-- Region --</option>
-				<option value="Africa">Africa</option>
-				<option value="Americas">Americas</option>
-				<option value="Asia">Asia</option>
-				<option value="Europe">Europe</option>
-				<option value="Oceania">Oceania</option>
-			</select>
+				<select name="Region" id="searchRegion" onchange="filterRegion();">
+					<option value="">Region</option>
+					<option value="Africa">Africa</option>
+					<option value="Americas">Americas</option>
+					<option value="Asia">Asia</option>
+					<option value="Europe">Europe</option>
+					<option value="Oceania">Oceania</option>
+				</select>
+
+				<input
+					type="submit"
+					class="inputSubmit"
+					value="Search"
+					onclick="searchBar()"
+				/>
+			</div>
 		</div>
-
-		<div id="infoCountry"></div>
-
+		<hr/>
+		<div class="container">
+			<div class="container cards" id="infoCountry"></div>
+		</div> 
 		<script defer src="index.js" charset="utf-8"></script>
 	</body>
 </html>

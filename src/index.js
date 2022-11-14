@@ -2,226 +2,166 @@ const searchCountry = document.getElementById("searchCountry");
 const searchRegion = document.getElementById("searchRegion");
 const infoCountry = document.getElementById("infoCountry");
 
-window.addEventListener("load", () => {
-	// este event listener sirve para ejecutar funciones y cargen apenas corra la app, lleva 2 parametros "load"
-	// un string para identificar para que es el event y el 2do debe ser un function
-
-	statusPage();
-});
-
-const statusPage = () => {
-	let page = document.body.id;
-
-	switch (page) {
-		case "page1":
-			fetchData();
-			loading();
-			break;
-		case "page2":
-			return console.log("estoy en pag2");
-			break;
-		default:
-			return console.log("no se trajo nada");
-	}
+// loading function when the page is loading the data from API
+const loading = () => {
+	infoCountry.innerHTML = `<div class="loading"></div>`;
 };
 
-// creamos un function para el buscar el pais deseado
+// reset function for select region element
+const reset = () => {
+	document.getElementById("searchRegion").selectedIndex = 0;
+};
+
+// Search function for the user push enter in the input
 const searchBar = () => {
-	// esto sera el valor que tenga el input
 	let searchQuery = searchCountry.value;
 
 	loading();
 
-	// llamos otra vez la funcion de busqueda pero con el query
-	fetchCountries(searchQuery);
+	fetchCountry(searchQuery);
 };
 
-// creamos un functio para filtrar los paises por region
+// filter function for the select element
 const filterRegion = () => {
-	const region = document.getElementById("searchRegion").value;
+	const region = searchRegion.value;
 	loading();
 	fetchRegion(region);
 	reset();
 };
 
-// creamos un loading para cuando la data este cargando
-const loading = () => {
-	infoCountry.innerHTML = `<div>
-    <p>Loading ....</p>
-</div>`;
+// function for send the query to the next page and change to next page
+const sendQuery = (value) => {
+	window.document.location = "detailContry.html" + "?country=" + value;
 };
 
-// reset function for select region element
-const reset = () => {
-	// de esta forma hacemos un reset de las options del select element
-	// selectedIndex contiene el numero de opcion del element al igualarlo a 0 lo obligamos a que su valor sea el por defecto
-	document.getElementById("searchRegion").selectedIndex = 0;
+// helpers function
+
+const dataHandler = (element) => {
+	if (element == 0 || element == undefined) {
+		return "N/A";
+	} else {
+		return `${element}`;
+	}
 };
 
-function addUrlParameter(name, value) {
-	// var searchParams = new URLSearchParams(window.location.search);
-	// searchParams.set(name, value);
-	// window.location.search = searchParams.toString();
+const sortCapital = (element) => {
+	if (element != undefined) {
+		const liElement = element.map((item) => {
+			return `${item}`;
+		});
 
-	console.log(name, value);
-}
+		return liElement.join(" - ");
+	} else {
+		return "N/A";
+	}
+};
 
-// window.onload = function () {
-// 	try {
+const content = (element) => {
+	const { name, flags, region, capital, population } = element;
 
-// 		var url1 = window.location.href.toLowerCase();
-// 		var url2 = new URL(url1);
-// 		console.log("esto ->>>>", url2);
+	const div = `<div class="card">
+	<div class="card-flag">
+		<img src="${flags.png}" alt="Avatar" />
+	</div>
+	<div class="card-body">
+		<span class="tag">${name.common}</span>
+		<h3>Population : ${dataHandler(population)}</h3>
+		<h3>Region : ${region}</h3>
+		<h3>Capital : ${sortCapital(capital)}</h3>
+	</div>
 
-// 	} catch (error) {
-// 			console.log(error);
-// 	}
-// };
+	<button class="button-card" onclick="sendQuery('${name.common}')">
+		Read more
+	</button>
+	</div>`;
 
+	return div;
+};
+
+const notFound = () => {
+	const divNotFound = `<div class="container-notFound">
+		<div class="notFound">
+			<h1>404!</h1>
+			<h2>NOT FOUND</h2>
+			<p>Sorry there are not country found in the data base</p>
+		</div>
+		</div>`;
+
+	return divNotFound;
+};
+
+// fetchs all data from API
 const fetchData = async () => {
-	let res;
-
 	try {
-		res = await fetch("https://restcountries.com/v3.1/all");
+		const res = await fetch("https://restcountries.com/v3.1/all");
 
-		let result = await res.json();
+		const result = await res.json();
 
-		// setting the default value
+		// setting the default value and stop the loading spinner
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			// destructurizamos
-			// const { name, flags, region, capital, population } = result;
-
-			// en este const se va a contener la data que esta llegando del fetch y organizada como se espera añadir en el html
-			// const contenido = `<div class="card">
-			// <img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			// <div class="container">
-			// 	<h4><b>${name.official}</b></h4>
-			// 	<p>Population : ${population}</p>
-			// 	<p>Region : ${region}</p>
-			// 	<p>Capital : ${capital[0]}</p>
-			// 	<button class="button button-color-card" onclick="addUrlParameter('bander', ${name.official})">
-			// 		<a>Ver mas</a>
-			// 	</button>
-			// </div>
-			// </div>`;
-
-			const contenido = () => {
-				let { name, flags, region, capital, population, cca2 } = result;
-
-				const div = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			<div class="container">
-				<h4><b>${name.official}</b></h4>
-				<p>Population : ${population}</p>
-				<p>Region : ${region}</p>
-				<p>Capital : ${capital}</p>
-				<button class="button button-color-card" onclick="addUrlParameter('bander', ${name.official})">
-					<a>Ver mas</a>
-				</button>
-			</div>
-			</div>`;
-
-				return div;
-			};
-
 			let div = document.createElement("div");
-			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido();
-			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
-			// este nuevo div con la nueva informacion y la adjunta en el HTML
+			div.innerHTML = content(result);
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
+		let div = document.createElement("div");
+		div.innerHTML = notFound();
+		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };
 
-const fetchCountries = async (query) => {
-	//query va a hacer el texto que el usuario coloque en el input
-	let res;
-
+// fecth data only by the country from API
+const fetchCountry = async (query) => {
 	try {
-		res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
+		const res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
 
-		let result = await res.json();
+		const result = await res.json();
 
 		// setting the default value
 		infoCountry.innerHTML = "";
 		searchCountry.value = "";
 
 		result.map((result) => {
-			// destructurizamos
-			const { name, flags, region, capital, population } = result;
-
-			// en este const se va a contener la data que esta llegando del fetch y organizada como se espera añadir en el html
-			const contenido = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			<div class="container">
-			<h4><b>${name.official}</b></h4>
-			<p>Population : ${population}</p>
-			<p>Region : ${region}</p>
-			<p>Capital : ${capital[0]}</p>
-			<button class="button button-color-card">
-			<a href="detailContry.html" >Ver mas</a>
-			</button>
-			</div>
-			</div>`;
-
-			let div = document.createElement("div");
-			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido;
-			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
-			// este nuevo div con la nueva informacion y la adjunta en el HTML
+			const div = document.createElement("div");
+			div.innerHTML = content(result);
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		const noFound = "Lo siento no se encontro el pais";
-		let div = document.createElement("div");
-		div.innerHTML = noFound;
+		const div = document.createElement("div");
+		div.innerHTML = notFound();
 		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };
 
+// fetch data only by region from API
 const fetchRegion = async (query) => {
-	let res;
-
 	try {
 		res = await fetch(`https://restcountries.com/v3.1/region/${query}`);
 
-		let result = await res.json();
+		const result = await res.json();
 
 		// setting the default value
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			// destructurizamos
-			const { name, flags, region, capital, population } = result;
-
-			// en este const se va a contener la data que esta llegando del fetch y organizada como se espera añadir en el html
-			const contenido = `<div class="card">
-			<img src="${flags.png}" alt="Avatar" style="width: 100%" />
-			<div class="container">
-			<h4><b>${name.official}</b></h4>
-			<p>Population : ${population}</p>
-			<p>Region : ${region}</p>
-			<p>Capital : ${capital[0]}</p>
-			<button class="button button-color-card">
-			<a href="detailContry.html">Ver mas</a>
-			</button>		
-			</div>
-			</div>`;
-
-			let div = document.createElement("div");
-			//de esta forma se le adjunta el contenido al new div
-			div.innerHTML = contenido;
-			// infoCountry es el id del div de donde queremos que se coloque la nueva info y appendChild lo que permite es poder adjuntar
-			// este nuevo div con la nueva informacion y la adjunta en el HTML
+			const div = document.createElement("div");
+			div.innerHTML = content(result);
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
+		const div = document.createElement("div");
+		div.innerHTML = notFound();
+		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };
+
+// event listener when the page get started
+window.addEventListener("load", () => {
+	fetchData();
+	loading();
+});
