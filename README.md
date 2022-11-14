@@ -16,7 +16,7 @@ The page was created with only html, css and js vanilla, in addition to this was
 
 ## Get started
 
-Open the index.html found in the src folder and run it with the browser of your choice.
+Open the index.html found in the folder of the project and run it with the browser of your choice.
 
 ## UI
 
