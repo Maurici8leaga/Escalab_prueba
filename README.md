@@ -16,7 +16,7 @@ The page was created with only html, css and js vanilla, in addition to this was
 
 ## Get started
 
-The first thing to do is open the project with the code editor of your choice and then once there, you have to run the project on the port 5500 in your local browser.
+Open the index.html found in the src folder and run it with the browser of your choice.
 
 ## UI
 
