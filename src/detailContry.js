@@ -1,24 +1,18 @@
 const infoDetails = document.getElementById("infoDetails");
 
-window.addEventListener("load", () => {
-	catchingQuery();
-	loading();
-});
-
 // function spinner for loading page
 const loading = () => {
 	infoDetails.innerHTML = `<div class="loading"></div>`;
 };
 
+// fetch function for get the data of the country and return it to the UI
 const catchingQuery = async () => {
-	let query = document.location.search.replace(/^.*?\=/, "");
-
-	let res;
+	const query = document.location.search.replace(/^.*?\=/, "");
 
 	try {
-		res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
+		const res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
 
-		let result = await res.json();
+		const result = await res.json();
 
 		//  setting the default value and stop the loading spinner
 		infoDetails.innerHTML = "";
@@ -267,7 +261,7 @@ const catchingQuery = async () => {
 			return div;
 		};
 
-		let div = document.createElement("div");
+		const div = document.createElement("div");
 		div.innerHTML = dataCountry();
 		infoDetails.appendChild(div);
 	} catch (error) {
@@ -281,9 +275,15 @@ const catchingQuery = async () => {
 				</button>
 			</div>
 			</div>`;
-		let div = document.createElement("div");
+		const div = document.createElement("div");
 		div.innerHTML = notFound;
 		infoDetails.appendChild(div);
 		console.log(error);
 	}
 };
+
+// event listener when the page get started
+window.addEventListener("load", () => {
+	catchingQuery();
+	loading();
+});

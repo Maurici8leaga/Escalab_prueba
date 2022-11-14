@@ -2,11 +2,17 @@ const searchCountry = document.getElementById("searchCountry");
 const searchRegion = document.getElementById("searchRegion");
 const infoCountry = document.getElementById("infoCountry");
 
-window.addEventListener("load", () => {
-	fetchData();
-	loading();
-});
+// loading function when the page is loading the data from API
+const loading = () => {
+	infoCountry.innerHTML = `<div class="loading"></div>`;
+};
 
+// reset function for select region element
+const reset = () => {
+	document.getElementById("searchRegion").selectedIndex = 0;
+};
+
+// Search function for the user push enter in the input
 const searchBar = () => {
 	let searchQuery = searchCountry.value;
 
@@ -15,20 +21,12 @@ const searchBar = () => {
 	fetchCountry(searchQuery);
 };
 
+// filter function for the select element
 const filterRegion = () => {
 	const region = searchRegion.value;
 	loading();
 	fetchRegion(region);
 	reset();
-};
-
-const loading = () => {
-	infoCountry.innerHTML = `<div class="loading"></div>`;
-};
-
-// reset function for select region element
-const reset = () => {
-	document.getElementById("searchRegion").selectedIndex = 0;
 };
 
 // function for send the query to the next page and change to next page
@@ -59,7 +57,7 @@ const sortCapital = (element) => {
 };
 
 const content = (element) => {
-	let { name, flags, region, capital, population } = element;
+	const { name, flags, region, capital, population } = element;
 
 	const div = `<div class="card">
 	<div class="card-flag">
@@ -92,15 +90,12 @@ const notFound = () => {
 	return divNotFound;
 };
 
-// fetchs data
-
+// fetchs all data from API
 const fetchData = async () => {
-	let res;
-
 	try {
-		res = await fetch("https://restcountries.com/v3.1/all");
+		const res = await fetch("https://restcountries.com/v3.1/all");
 
-		let result = await res.json();
+		const result = await res.json();
 
 		// setting the default value and stop the loading spinner
 		infoCountry.innerHTML = "";
@@ -118,51 +113,55 @@ const fetchData = async () => {
 	}
 };
 
+// fecth data only by the country from API
 const fetchCountry = async (query) => {
-	let res;
-
 	try {
-		res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
+		const res = await fetch(`https://restcountries.com/v3.1/name/${query}`);
 
-		let result = await res.json();
+		const result = await res.json();
 
 		// setting the default value
 		infoCountry.innerHTML = "";
 		searchCountry.value = "";
 
 		result.map((result) => {
-			let div = document.createElement("div");
+			const div = document.createElement("div");
 			div.innerHTML = content(result);
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		let div = document.createElement("div");
+		const div = document.createElement("div");
 		div.innerHTML = notFound();
 		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };
 
+// fetch data only by region from API
 const fetchRegion = async (query) => {
-	let res;
-
 	try {
 		res = await fetch(`https://restcountries.com/v3.1/region/${query}`);
 
-		let result = await res.json();
+		const result = await res.json();
 
 		// setting the default value
 		infoCountry.innerHTML = "";
 
 		result.map((result) => {
-			let div = document.createElement("div");
+			const div = document.createElement("div");
 			div.innerHTML = content(result);
 			infoCountry.appendChild(div);
 		});
 	} catch (error) {
-		let div = document.createElement("div");
+		const div = document.createElement("div");
 		div.innerHTML = notFound();
 		infoCountry.appendChild(div);
 		console.log(error);
 	}
 };
+
+// event listener when the page get started
+window.addEventListener("load", () => {
+	fetchData();
+	loading();
+});
